@@ -1,11 +1,14 @@
 import React from 'react';
-import './App.scss';
-import "antd/dist/antd.css";
+import './../styles/App.scss';
 import '@csstools/normalize.css';
+import Filter from './Filter'
+import Output from './Output'
 
 function App() {
   return (
     <div className="App">
+      <Filter />
+      <Output />
       <p>some app</p>
     </div>
   );
