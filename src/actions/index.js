@@ -11,9 +11,8 @@ export const fetchTickets = () => async (dispatch) => {
     try {
         const { searchIdUrl, ticketsUrl } = routes;
         const { data: { searchId }} = await axios.get(searchIdUrl());
-        const tickets = await axios.get(ticketsUrl(searchId))
-        console.log(tickets)
-        dispatch(fetchTicketsSuccess())
+        const { data } = await axios.get(ticketsUrl(searchId))
+        dispatch(fetchTicketsSuccess(data))
     } catch (e) {
         dispatch(fetchTicketsFailure());
         console.log(e);

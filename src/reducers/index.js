@@ -19,11 +19,12 @@ const ticketsFetchingState = handleActions({
 
 const tickets = handleActions({
     [actions.fetchTicketsSuccess](state, { payload }) {
+        console.log(typeof payload.tickets)
         return {
-            tickets: {}
+            tickets: [payload.tickets],
         };
     }
-}, {tickets: {}})
+}, {tickets: []})
 
 export default combineReducers({
     ticketsFetchingState,
