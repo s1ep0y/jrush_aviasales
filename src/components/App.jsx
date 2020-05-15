@@ -1,8 +1,8 @@
 import React from 'react';
-import './../styles/App.scss';
+import '../styles/App.scss';
 import '@csstools/normalize.css';
-import Filter from './Filter'
-import Output from './Output'
+import Filter from './Filter';
+import Output from './Output';
 
 function App() {
   return (
