@@ -7,14 +7,25 @@ const travelTimeMaker = (date, duration) => {
     hours: oldDate.getHours().toString().length === 1 ? '0' + oldDate.getHours() : oldDate.getHours(),
     mins: oldDate.getMinutes().toString().length === 1 ? '0' + oldDate.getMinutes() : oldDate.getMinutes(),
   }
-  
-
-  const newDateOut = {
+    const newDateOut = {
     hours: newDate.getHours().toString().length === 1 ? '0' + newDate.getHours() : newDate.getHours(),
     mins: newDate.getMinutes().toString().length === 1 ? '0' + newDate.getMinutes() : newDate.getMinutes(),
   }
-
   return `${oldDateOut.hours}:${oldDateOut.mins} - ${newDateOut.hours}:${newDateOut.mins}`;
+}
+
+const transferMaker = (count) => {
+  switch (count) {
+    case 1:
+      return '1 пересадка';
+    case 2:
+      return '2 пересадки';
+    case 3:
+      return '3 пересадки';
+    default:
+      return '0 пересадок';
+      
+  }
 }
 
 const Ticket = ({
@@ -52,9 +63,7 @@ const Ticket = ({
 
         <ul className="ticket__col">
           <li className="ticket__col__first_line">
-            {toPlace.stops.length}
-            {' '}
-            пересадки
+            {transferMaker(toPlace.stops.length)}
           </li>
           <li className="ticket__col__second_line">
             {toPlace.stops.join(' ')}
@@ -84,9 +93,7 @@ const Ticket = ({
 
         <ul className="ticket__col">
           <li className="ticket__col__first_line">
-            {fromPlace.stops.length}
-            {' '}
-            пересадк 
+            {transferMaker(fromPlace.stops.length)}
           </li>
           <li className="ticket__col__second_line">
             {fromPlace.stops.join(' ')}
