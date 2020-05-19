@@ -11,22 +11,23 @@ export const fetchTickets = () => async (dispatch) => {
   try {
     const { searchIdUrl, ticketsUrl } = routes;
     const { data: { searchId } } = await axios.get(searchIdUrl());
-    console.log(searchId);
 
-    const dataCeeper = async (stop = false, tickets = []) => {
-      if (stop === true) return { stop, tickets };
-      const { data } = await axios.get(ticketsUrl(searchId));
-      dispatch(fetchTicketsSuccess(data));
-      dataCeeper (data.stop, [...tickets, ...data.tickets])
+    const dataCeeper = async (stop = false) => {
+      if (stop === true) return;
+      try {
+        const { data } = await axios.get(ticketsUrl(searchId));
+        dispatch(fetchTicketsSuccess(data));
+        dataCeeper (data.stop)
+      } catch (e) {
+        console.log('вызвали с ошибкой и погнали дальше')
+        dataCeeper ()
+      }
+      
     };
 
     dataCeeper();
   } catch (e) {
-    console.log('вызываем с ошибкой');
     dispatch(fetchTicketsFailure());
-    console.log(e);
-    console.log('вызываем с ошибкой');
-    fetchTickets();
-    // throw e;
+    throw e;
   }
 };

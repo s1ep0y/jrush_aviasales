@@ -12,16 +12,18 @@ import * as actions from '../actions/index.js';
 // }
 
 const mapStateToProps = (state) => ({
+  transfersFilter: state.form.transfersFilter,
   sortBy: state.form.sort ? state.form.sort.values.sortBy : 'cheap',
   tickets: state.tickets.tickets,
 });
 
 class Output extends React.Component {
   ticketsRender = () => {
-    const { tickets, sortBy } = this.props;
+    const { tickets, sortBy, transfersFilter } = this.props;
+    console.log(transfersFilter)
 
     if (!tickets) return null;
-    
+
     const ticketsArrSorted = tickets
       .sort((a, b) => (sortBy === 'cheap'
         ? a.price > b.price ?
@@ -29,9 +31,6 @@ class Output extends React.Component {
         : a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration ?
           1 : -1))
       .splice(0, 5)
-    
-      console.log(ticketsArrSorted.length)
-
     
     const ticketsRendered = ticketsArrSorted.map(({ carrier, price, segments }) => (
       <Ticket

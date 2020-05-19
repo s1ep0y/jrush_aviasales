@@ -1,39 +1,41 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index.js';
+
 
 const Filter = (props) => (
   <div className="filter">
     <h2>Количество пересадок</h2>
     <form action="">
       <label htmlFor="all">
+        <Field component="input" type="checkbox" name="all" value="all" id="" />
         {' '}
-
-        <input type="checkbox" name="all" id="" />
         Все
       </label>
       <label htmlFor="noStops">
         {' '}
-        <input type="checkbox" name="noStops" id="" />
+        <Field component="input" type="checkbox" value="noStops" name="noStops" id="" />
         Без пересадок
       </label>
       <label htmlFor="oneStop">
         {' '}
-        <input type="checkbox" name="oneStop" id="" />
+        <Field component="input" type="checkbox" value="oneStop" name="oneStop" id="" />
         1 пересадка
       </label>
       <label htmlFor="twoStops">
         {' '}
-        <input type="checkbox" name="twoStops" id="" />
+        <Field component="input" type="checkbox" value="twoStops" name="twoStops" id="" />
         2 пересадки
       </label>
       <label htmlFor="threeStops">
         {' '}
-        <input type="checkbox" name="threeStops" id="" />
+        <Field component="input" type="checkbox" value="threeStops" name="threeStops" id="" />
         3 пересадки
       </label>
     </form>
   </div>
 );
 
-export default Filter;
+export default reduxForm({
+  form: 'transfersFilter'
+})(Filter);

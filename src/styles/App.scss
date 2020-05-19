@@ -8,22 +8,33 @@ body {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .ticket {
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
   width: 500px;
-  border: 1px solid black;
-  background: white;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, .1);
+  background: #FFFFFF;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  height: 184px;
   padding: 20px;
   margin-bottom: 20px;
+  text-align: left;
+
+  &__price {
+    margin-top: 6px;
+    margin-bottom: 26px;
+    font-weight: 600;
+    color: #2196F3;
+  }
 
   &__companyLogo {
+    position: absolute;
+    top: 20px;
+    right: 15%;
     height: 36px;
     width: 110px;
   }
@@ -50,9 +61,17 @@ body {
     margin: 0;
     list-style-type: none;
     padding-left: 0;
-
-    li {
-      // border: 1px solid black;
+    width: 33.333%;
+    &__first_line{
+      letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #A0B0B9;
+    }
+    &__second_line{
+      font-weight: 600;
+      font-size: 14px;
+      color: #4A4A4A;
     }
   }
 }
