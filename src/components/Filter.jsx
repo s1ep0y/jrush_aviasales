@@ -8,7 +8,7 @@ const Filter = (props) => (
     <form action="">
       <label htmlFor="all">
         {' '}
-        
+
         <input type="checkbox" name="all" id="" />
         Все
       </label>

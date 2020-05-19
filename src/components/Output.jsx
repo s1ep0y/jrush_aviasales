@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { getTime, getUnixTime } from 'date-fns';
 import Sort from './Sort';
 import Ticket from './Ticket';
-import { getTime, getUnixTime } from 'date-fns'
 import * as actions from '../actions/index.js';
 
 
@@ -11,26 +11,29 @@ import * as actions from '../actions/index.js';
 //   fetchTickets: actions.fetchTickets,
 // }
 
-const mapStateToProps = (state) => {
-  return {
-  sortBy: state.form.sort !== undefined ? state.form.sort.values.sortBy : 'cheap',
-  tickets: state.tickets,
-}};
+const mapStateToProps = (state) => ({
+  sortBy: state.form.sort ? state.form.sort.values.sortBy : 'cheap',
+  tickets: state.tickets.tickets,
+});
 
 class Output extends React.Component {
-
   ticketsRender = () => {
     const { tickets, sortBy } = this.props;
-    console.log(sortBy === 'cheap')
-    let ticketsArr = tickets.tickets.sort((a, b)=> sortBy === 'cheap'
-      ? a.price > b.price ? 1 : -1
-      : a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration ? 1 : -1)
-    if (!ticketsArr) return null;
+
+    if (!tickets) return null;
+    
+    const ticketsArrSorted = tickets
+      .sort((a, b) => (sortBy === 'cheap'
+        ? a.price > b.price ?
+          1 : -1
+        : a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration ?
+          1 : -1))
+      .splice(0, 5)
+    
+      console.log(ticketsArrSorted.length)
 
     
-
-    const ticketsRendered = ticketsArr.map(({ carrier, price, segments }) => {
-      return (
+    const ticketsRendered = ticketsArrSorted.map(({ carrier, price, segments }) => (
       <Ticket
         key={_.uniqueId()}
         carrier={carrier}
@@ -38,10 +41,9 @@ class Output extends React.Component {
         toPlace={segments[0]}
         fromPlace={segments[1]}
       />
-    )});
+    ));
 
     return ticketsRendered;
-
   }
 
   render() {

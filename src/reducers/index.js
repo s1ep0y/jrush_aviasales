@@ -17,7 +17,7 @@ const ticketsFetchingState = handleActions({
 
 
 const tickets = handleActions({
-  [actions.fetchTicketsSuccess](state, { payload }) {   
+  [actions.fetchTicketsSuccess](state, { payload }) {
     return {
       tickets: [...state.tickets, ...payload.tickets],
     };

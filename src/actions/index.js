@@ -9,25 +9,24 @@ export const fetchTicketsFailure = createAction('TIKETS_FETCH_FAILURE');
 export const fetchTickets = () => async (dispatch) => {
   dispatch(fetchTicketsRequest());
   try {
-
     const { searchIdUrl, ticketsUrl } = routes;
     const { data: { searchId } } = await axios.get(searchIdUrl());
-    console.log(searchId)
+    console.log(searchId);
 
     const dataCeeper = async (stop = false, tickets = []) => {
       if (stop === true) return { stop, tickets };
-      const { data } = await axios.get(ticketsUrl(searchId))
+      const { data } = await axios.get(ticketsUrl(searchId));
       dispatch(fetchTicketsSuccess(data));
-      // dataCeeper (data.stop, [...tickets, ...data.tickets])
-    }
+      dataCeeper (data.stop, [...tickets, ...data.tickets])
+    };
 
     dataCeeper();
-    
   } catch (e) {
+    console.log('вызываем с ошибкой');
     dispatch(fetchTicketsFailure());
     console.log(e);
-    console.log('вызываем с ошибкой')
-    fetchTickets()
+    console.log('вызываем с ошибкой');
+    fetchTickets();
     // throw e;
   }
 };

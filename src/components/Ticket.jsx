@@ -6,7 +6,9 @@ const Ticket = ({
   <div className="ticket">
     <div className="ticket__header">
       <h2 className="ticket__price">
-        {price} P
+        {price}
+        {' '}
+        P
       </h2>
       <img src={`//pics.avs.io/99/36/${carrier}.png`} className="ticket__companyLogo" alt={carrier} />
     </div>
