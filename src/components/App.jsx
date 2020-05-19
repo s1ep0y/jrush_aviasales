@@ -9,11 +9,8 @@ function App() {
     <div className="App">
       <Filter />
       <Output />
-      <p>some app</p>
     </div>
   );
 }
 
 export default App;
-
-

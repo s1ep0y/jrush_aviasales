@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import Sort from './Sort';
 import Ticket from './Ticket';
-import * as actions from './../actions/index.js'
-import _ from 'lodash';
+import { getTime, getUnixTime } from 'date-fns'
+import * as actions from '../actions/index.js';
 
 
 // const actionCreators = {
@@ -12,46 +13,37 @@ import _ from 'lodash';
 
 const mapStateToProps = (state) => {
   return {
-    tickets: state.tickets,
-  }
-}
+  sortBy: state.form.sort !== undefined ? state.form.sort.values.sortBy : 'cheap',
+  tickets: state.tickets,
+}};
 
 class Output extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   ticketsRender = () => {
-    const { tickets: {tickets} } = this.props;
-    if (!tickets[0]) return null;
-    const ticketsRendered = tickets[0].map(({ carrier, price, segments })=>(
+    const { tickets, sortBy } = this.props;
+    console.log(sortBy === 'cheap')
+    let ticketsArr = tickets.tickets.sort((a, b)=> sortBy === 'cheap'
+      ? a.price > b.price ? 1 : -1
+      : a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration ? 1 : -1)
+    if (!ticketsArr) return null;
+
+    
+
+    const ticketsRendered = ticketsArr.map(({ carrier, price, segments }) => {
+      return (
       <Ticket
         key={_.uniqueId()}
         carrier={carrier}
-        price={price}
+        price={new Intl.NumberFormat('ru-RU').format(price)}
         toPlace={segments[0]}
         fromPlace={segments[1]}
       />
-    ))
-    console.log(tickets[0])
-    console.log(ticketsRendered.length)
-    // const renderedTickets = tickets.map(()=> console.log('someghint'))
+    )});
 
-    return (
-      <div>
-      {ticketsRendered}
-      </div>
-    )
+    return ticketsRendered;
+
   }
 
-  // {/* { tickets.map(({ carrier, price, segments })=>(
-  //         <Ticket 
-  //           carrier={carrier}
-  //           price={price}
-  //           toPlace={segments[0]}
-  //           fromPlace={segments[1]}
-  //         />
-  //       ))} */}
   render() {
     return (
       <div className="output">

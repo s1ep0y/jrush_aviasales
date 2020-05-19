@@ -8,28 +8,29 @@ const Filter = (props) => (
     <form action="">
       <label htmlFor="all">
         {' '}
-        Все
+        
         <input type="checkbox" name="all" id="" />
+        Все
       </label>
       <label htmlFor="noStops">
         {' '}
-        Без пересадок
         <input type="checkbox" name="noStops" id="" />
+        Без пересадок
       </label>
       <label htmlFor="oneStop">
         {' '}
-        1 пересадка
         <input type="checkbox" name="oneStop" id="" />
+        1 пересадка
       </label>
       <label htmlFor="twoStops">
         {' '}
-        2 пересадки
         <input type="checkbox" name="twoStops" id="" />
+        2 пересадки
       </label>
       <label htmlFor="threeStops">
         {' '}
-        3 пересадки
         <input type="checkbox" name="threeStops" id="" />
+        3 пересадки
       </label>
     </form>
   </div>

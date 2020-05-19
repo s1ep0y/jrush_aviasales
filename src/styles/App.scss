@@ -1,48 +1,64 @@
+body{
+  background-color: #F3F7FA;
+}
+
 .App {
   padding: 20px;
   text-align: center;
   display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: column;
+  justify-content: space-around;
+  flex-direction: row;
 }
 
-.countdown {
+.ticket {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: nowrap;
   flex-direction: column;
-
-  &__inputs {
-    justify-content: space-between;
+  width: 500px;
+  border: 1px solid black;
+  background: white;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  height: 184px;
+  padding: 20px;
+  margin-bottom: 20px;
+  &__companyLogo{
+    height: 36px;
+    width: 110px;
+  }
+  &__header {
     display: flex;
-    margin-bottom: 12px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
   }
 
-  &__textOutput {
-    margin: 12px;
+  &__body {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
 
-    span {
-      border: 1px solid black;
-      padding: 4px 8px;
-      border-radius: 3px;
+    &_row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__col {
+    margin: 0;
+    list-style-type: none;
+    padding-left: 0;
+    li {
+      // border: 1px solid black;
     }
   }
 }
 
-.buttons {
-  padding: 12px;
-}
-
-.timer {
-
-  &__textOutput {
-    margin: 12px;
-
-    span {
-      padding: 4px 8px;
-      border-radius: 3px;
-    }
+.filter{
+  form{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

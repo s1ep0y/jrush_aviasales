@@ -1,69 +1,83 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import * as actions from '../actions/index.js';
 
-const Ticket = ({carrier, price, toPlace, fromPlace}) => (
-    <div className="fly">
-        <div className="fly__header">
-            <h2 className="fly__price">
-                {price}
-            </h2>
-            <img src="" className="fly__companyLogo" alt={carrier}/>
-        </div>
-        <div className="fly__body">
-            <div className="fly__body_row">
-                <div className="fly__way">
-                    <ul className="fly__twoRows">
-                        <li>
-                            {`${toPlace.origin}-${toPlace.destination}`}
-                        </li>
-                        <li>
-                            {toPlace.date}
-                        </li>
-                    </ul>
-                </div>
-                <div className="fly__duration">
-                    {toPlace.duration}
-                </div>
-                <div className="fly__stops">
-                    <ul className="fly__twoRows">
-                        <li>
-                            {toPlace.stops.length} пересадки
-                        </li>
-                        <li>
-                            {toPlace.stops}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div className="fly__body_row">
-                <div className="fly__way">
-                    <ul className="fly__twoRows">
-                        <li>
-                            {`${fromPlace.origin}-${fromPlace.destination}`}
-                        </li>
-                        <li>
-                            {fromPlace.date}
-                        </li>
-                    </ul>
-                </div>
-                <div className="fly__duration">
-                    {fromPlace.duration}
-                </div>
-                <div className="fly__stops">
-                    <ul className="fly__twoRows">
-                        <li>
-                            {fromPlace.stops.length} пересадки
-                        </li>
-                        <li>
-                            {fromPlace.stops}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+const Ticket = ({
+  carrier, price, toPlace, fromPlace,
+}) => (
+  <div className="ticket">
+    <div className="ticket__header">
+      <h2 className="ticket__price">
+        {price} P
+      </h2>
+      <img src={`//pics.avs.io/99/36/${carrier}.png`} className="ticket__companyLogo" alt={carrier} />
     </div>
+    <div className="ticket__body">
+      <div className="ticket__body_row">
+
+        <ul className="ticket__col">
+          <li>
+            {`${toPlace.origin}-${toPlace.destination}`}
+          </li>
+          <li>
+            {toPlace.date}
+          </li>
+        </ul>
+
+        <ul className="ticket__col">
+          <li>
+            <span>В пути</span>
+          </li>
+          <li>
+            {toPlace.duration}
+          </li>
+        </ul>
+
+        <ul className="ticket__col">
+          <li>
+            {toPlace.stops.length}
+            {' '}
+            пересадки
+          </li>
+          <li>
+            {toPlace.stops.join(' ')}
+          </li>
+        </ul>
+
+      </div>
+      <div className="ticket__body_row">
+
+        <ul className="ticket__col">
+          <li>
+            {`${fromPlace.origin}-${fromPlace.destination}`}
+          </li>
+          <li>
+            {fromPlace.date}
+          </li>
+        </ul>
+
+        <ul className="ticket__col">
+          <li>
+            <span>В пути</span>
+          </li>
+          <li>
+            {fromPlace.duration}
+          </li>
+        </ul>
+
+        <ul className="ticket__col">
+          <li>
+            {fromPlace.stops.length}
+            {' '}
+            пересадки
+          </li>
+          <li>
+            {fromPlace.stops.join(' ')}
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
 );
 
 export default Ticket;
