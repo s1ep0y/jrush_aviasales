@@ -1,17 +1,11 @@
 import React from 'react';
+import { getTime, addMinutes, format } from 'date-fns';
 
 const travelTimeMaker = (date, duration) => {
-  const oldDate = new Date(date);
-  const newDate = new Date(Date.parse(date) + duration * 60000);
-  const oldDateOut = {
-    hours: oldDate.getHours().toString().length === 1 ? `0${oldDate.getHours()}` : oldDate.getHours(),
-    mins: oldDate.getMinutes().toString().length === 1 ? `0${oldDate.getMinutes()}` : oldDate.getMinutes(),
-  };
-  const newDateOut = {
-    hours: newDate.getHours().toString().length === 1 ? `0${newDate.getHours()}` : newDate.getHours(),
-    mins: newDate.getMinutes().toString().length === 1 ? `0${newDate.getMinutes()}` : newDate.getMinutes(),
-  };
-  return `${oldDateOut.hours}:${oldDateOut.mins} - ${newDateOut.hours}:${newDateOut.mins}`;
+  const dateToWork = new Date(date)
+  const oldDate = format(dateToWork, "hh':'mm")
+  const newDate = format(addMinutes(dateToWork, duration), "hh':'mm")
+  return `${oldDate} - ${newDate}`;
 };
 
 const transferMaker = (count) => {
