@@ -3,12 +3,78 @@ body {
 }
 
 .App {
-  padding: 20px;
   text-align: center;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-direction: row;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
+}
+
+.filter {
+  background: #FFFFFF;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, .1);
+  border-radius: 5px;
+  height: 252px;
+  width: 232px;
+  margin-right: 20px;
+
+  h2 {
+    margin-top: 20px;
+    letter-spacing: .5;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  input {
+    display: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+
+  input:checked + label {
+
+    &:after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.28571 8L0 4.16123L1.20857 3.0787L4.28571 5.82726L10.7914 0L12 1.09021L4.28571 8Z' fill='%232196F3'/%3E%3C/svg%3E%0A");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      position: absolute;
+      left: 21px;
+      top: 11px;
+    }
+  }
+
+  label {
+    margin-bottom: 0px;
+    font-size: 13px;
+    color: #4A4A4A;
+    width: 100%;
+    text-align: left;
+    padding: 10px 20px 10px 50px;
+    box-sizing: border-box;
+    position: relative;
+    line-height: 20px;
+
+    &:hover {
+      background: #F1FCFF;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 20px;
+      border: 1px solid #2196F3;
+      border-radius: 2px;
+    }
+  }
 }
 
 .ticket {
@@ -18,7 +84,7 @@ body {
   flex-direction: column;
   width: 500px;
   background: #FFFFFF;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, .1);
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;
@@ -62,13 +128,15 @@ body {
     list-style-type: none;
     padding-left: 0;
     width: 33.333%;
-    &__first_line{
-      letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-size: 12px;
-    color: #A0B0B9;
+
+    &__first_line {
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #A0B0B9;
     }
-    &__second_line{
+
+    &__second_line {
       font-weight: 600;
       font-size: 14px;
       color: #4A4A4A;
@@ -83,5 +151,18 @@ body {
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+.sort {
+  width: 100%;
+
+  &__button {
+    width: 50%;
+    padding: 15px 56px;
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px solid #DFE5EC;
+    box-sizing: border-box;
   }
 }

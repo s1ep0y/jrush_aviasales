@@ -1,18 +1,18 @@
 import React from 'react';
 
 const travelTimeMaker = (date, duration) => {
-  const oldDate = new Date(date)
-  const newDate = new Date(Date.parse(date) + duration * 60000)
+  const oldDate = new Date(date);
+  const newDate = new Date(Date.parse(date) + duration * 60000);
   const oldDateOut = {
-    hours: oldDate.getHours().toString().length === 1 ? '0' + oldDate.getHours() : oldDate.getHours(),
-    mins: oldDate.getMinutes().toString().length === 1 ? '0' + oldDate.getMinutes() : oldDate.getMinutes(),
-  }
-    const newDateOut = {
-    hours: newDate.getHours().toString().length === 1 ? '0' + newDate.getHours() : newDate.getHours(),
-    mins: newDate.getMinutes().toString().length === 1 ? '0' + newDate.getMinutes() : newDate.getMinutes(),
-  }
+    hours: oldDate.getHours().toString().length === 1 ? `0${oldDate.getHours()}` : oldDate.getHours(),
+    mins: oldDate.getMinutes().toString().length === 1 ? `0${oldDate.getMinutes()}` : oldDate.getMinutes(),
+  };
+  const newDateOut = {
+    hours: newDate.getHours().toString().length === 1 ? `0${newDate.getHours()}` : newDate.getHours(),
+    mins: newDate.getMinutes().toString().length === 1 ? `0${newDate.getMinutes()}` : newDate.getMinutes(),
+  };
   return `${oldDateOut.hours}:${oldDateOut.mins} - ${newDateOut.hours}:${newDateOut.mins}`;
-}
+};
 
 const transferMaker = (count) => {
   switch (count) {
@@ -24,9 +24,8 @@ const transferMaker = (count) => {
       return '3 пересадки';
     default:
       return '0 пересадок';
-      
   }
-}
+};
 
 const Ticket = ({
   carrier, price, toPlace, fromPlace,
@@ -45,7 +44,7 @@ const Ticket = ({
 
         <ul className="ticket__col">
           <li className="ticket__col__first_line">
-            {`${toPlace.origin}-${toPlace.destination}`}
+            {`${toPlace.origin} - ${toPlace.destination}`}
           </li>
           <li className="ticket__col__second_line">
             {travelTimeMaker(toPlace.date, toPlace.duration)}
@@ -57,7 +56,7 @@ const Ticket = ({
             <span>В пути</span>
           </li>
           <li className="ticket__col__second_line">
-            {`${Math.floor(toPlace.duration/60)}ч ${toPlace.duration%60}м`}
+            {`${Math.floor(toPlace.duration / 60)}ч ${toPlace.duration % 60}м`}
           </li>
         </ul>
 
@@ -75,10 +74,10 @@ const Ticket = ({
 
         <ul className="ticket__col">
           <li className="ticket__col__first_line">
-            {`${fromPlace.origin}-${fromPlace.destination}`}
+            {`${fromPlace.origin} - ${fromPlace.destination}`}
           </li>
           <li className="ticket__col__second_line">
-          {travelTimeMaker(fromPlace.date, fromPlace.duration)}
+            {travelTimeMaker(fromPlace.date, fromPlace.duration)}
           </li>
         </ul>
 
@@ -87,7 +86,7 @@ const Ticket = ({
             <span>В пути</span>
           </li>
           <li className="ticket__col__second_line">
-          {`${Math.floor(fromPlace.duration/60)}ч ${fromPlace.duration%60}м`}
+            {`${Math.floor(fromPlace.duration / 60)}ч ${fromPlace.duration % 60}м`}
           </li>
         </ul>
 

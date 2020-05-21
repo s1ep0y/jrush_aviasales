@@ -17,12 +17,11 @@ export const fetchTickets = () => async (dispatch) => {
       try {
         const { data } = await axios.get(ticketsUrl(searchId));
         dispatch(fetchTicketsSuccess(data));
-        dataCeeper (data.stop)
+        dataCeeper(data.stop);
       } catch (e) {
-        console.log('вызвали с ошибкой и погнали дальше')
-        dataCeeper ()
+        console.log('вызвали с ошибкой и погнали дальше');
+        dataCeeper();
       }
-      
     };
 
     dataCeeper();

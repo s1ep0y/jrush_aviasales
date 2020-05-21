@@ -8,14 +8,14 @@ const data = {
 };
 
 let Sort = () => (
-  <div className="Sort">
+  <div className="sort">
     <form>
-      <label>
+      <label className="sort__button">
         <Field component="input" type="radio" name="sortBy" value="cheap" />
         {' '}
         Самый дешевый
       </label>
-      <label>
+      <label className="sort__button">
         <Field component="input" type="radio" name="sortBy" value="faster" />
         {' '}
         Самый быстрый
@@ -29,7 +29,7 @@ Sort = reduxForm({
 })(Sort);
 
 Sort = connect(
-  (state) => ({
+  () => ({
     initialValues: data,
   }),
 )(Sort);
