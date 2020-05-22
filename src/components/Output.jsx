@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { getTime, getUnixTime } from 'date-fns';
+import PropTypes from 'prop-types';
 import Sort from './Sort';
 import Ticket from './Ticket';
 
@@ -18,20 +18,27 @@ class Output extends React.Component {
     if (!tickets) return null;
 
     const stopsFilterArr = () => {
-      if (!transfersFilter.hasOwnProperty('values')) return ['all'];
-      const arr = Object.keys(transfersFilter.values).reduce((acc, current) => (transfersFilter.values[current] ? [current, ...acc] : [...acc]), []);
+      if (!transfersFilter.values) return ['all'];
+      const arr = Object.keys(transfersFilter.values)
+        .reduce((acc, current) => (transfersFilter.values[current]
+          ? [current, ...acc] : [...acc]), []);
       return arr.length !== 0 ? arr : ['all'];
     };
 
     const ticketsArrPrepared = (arr) => {
       const params = stopsFilterArr();
-      const sorted = arr.sort((a, b) => (sortBy === 'cheap'
-        ? a.price > b.price
-          ? 1 : -1
-        : a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration
-          ? 1 : -1));
+      const sorted = arr.sort((alfa, beta) => {
+        if (sortBy === 'cheap') {
+          return alfa.price > beta.price ? 1 : -1;
+        }
+        const dur1 = alfa.segments[0].duration + alfa.segments[1].duration;
+        const dur2 = beta.segments[0].duration + beta.segments[1].duration;
+        return dur1 > dur2
+          ? 1 : -1;
+      });
+
+
       if (params.includes('all')) return sorted;
-      console.log(params);
       return sorted.filter((item) => {
         const count = item.segments[0].stops.length;
         switch (count) {
@@ -72,5 +79,17 @@ class Output extends React.Component {
     );
   }
 }
+
+Output.defaultProps = {
+  tickets: {},
+  sortBy: '',
+  transfersFilter: {},
+};
+
+Output.propTypes = {
+  tickets: PropTypes.objectOf(PropTypes.object),
+  sortBy: PropTypes.string,
+  transfersFilter: PropTypes.objectOf(PropTypes.object),
+};
 
 export default connect(mapStateToProps, null)(Output);

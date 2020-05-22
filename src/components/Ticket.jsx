@@ -1,10 +1,11 @@
 import React from 'react';
-import { getTime, addMinutes, format } from 'date-fns';
+import { addMinutes, format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 const travelTimeMaker = (date, duration) => {
-  const dateToWork = new Date(date)
-  const oldDate = format(dateToWork, "hh':'mm")
-  const newDate = format(addMinutes(dateToWork, duration), "hh':'mm")
+  const dateToWork = new Date(date);
+  const oldDate = format(dateToWork, "hh':'mm");
+  const newDate = format(addMinutes(dateToWork, duration), "hh':'mm");
   return `${oldDate} - ${newDate}`;
 };
 
@@ -98,5 +99,19 @@ const Ticket = ({
 
   </div>
 );
+
+Ticket.defaultProps = {
+  toPlace: {},
+  fromPlace: {},
+  price: 0,
+  carrier: '',
+};
+
+Ticket.propTypes = {
+  price: PropTypes.number,
+  toPlace: PropTypes.objectOf(PropTypes.object),
+  fromPlace: PropTypes.objectOf(PropTypes.object),
+  carrier: PropTypes.string,
+};
 
 export default Ticket;

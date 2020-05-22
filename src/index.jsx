@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers/index.js'
-import { fetchTickets } from './actions/index.js'
+import { fetchTickets } from './actions/index.jsx'
 
 
 /* eslint-disable no-underscore-dangle */
@@ -17,9 +17,7 @@ const devtoolMiddleware = ext && ext();
 const store = createStore(
   reducers,
   compose(
-    // BEGIN (write your solution here)
     applyMiddleware(thunk),
-    // END
     devtoolMiddleware,
   ),
 );
