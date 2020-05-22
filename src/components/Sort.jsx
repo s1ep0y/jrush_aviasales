@@ -6,7 +6,7 @@ const data = {
   sortBy: 'cheap',
 };
 
-let Sort = () => (
+const Sort = () => (
   <div className="sort">
     <form>
       <label className="sort__button" htmlFor="cheap">
@@ -23,12 +23,20 @@ let Sort = () => (
   </div>
 );
 
-Sort = connect(
+// Sort =
+
+// Sort = connect(
+//   () => ({
+//     initialValues: data,
+//   }),
+// )(reduxForm({
+//   form: 'sort',
+// })(Sort));
+
+export default connect(
   () => ({
     initialValues: data,
   }),
-)(Sort);
-
-export default reduxForm({
+)(reduxForm({
   form: 'sort',
-})(Sort);
+})(Sort));

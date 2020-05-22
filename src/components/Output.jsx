@@ -8,12 +8,12 @@ import Ticket from './Ticket';
 const mapStateToProps = (state) => ({
   transfersFilter: state.form.transfersFilter,
   sortBy: state.form.sort ? state.form.sort.values.sortBy : 'cheap',
-  tickets: state.tickets.tickets,
+  tickets: state.tickets,
 });
 
 class Output extends React.Component {
   ticketsRender = () => {
-    const { tickets, sortBy, transfersFilter = [] } = this.props;
+    const { tickets: { tickets }, sortBy, transfersFilter = [] } = this.props;
 
     if (!tickets) return null;
 
@@ -87,7 +87,7 @@ Output.defaultProps = {
 };
 
 Output.propTypes = {
-  tickets: PropTypes.objectOf(PropTypes.object),
+  tickets: PropTypes.objectOf(PropTypes.array),
   sortBy: PropTypes.string,
   transfersFilter: PropTypes.objectOf(PropTypes.object),
 };

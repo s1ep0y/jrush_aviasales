@@ -103,14 +103,14 @@ const Ticket = ({
 Ticket.defaultProps = {
   toPlace: {},
   fromPlace: {},
-  price: 0,
+  price: '',
   carrier: '',
 };
 
 Ticket.propTypes = {
-  price: PropTypes.number,
-  toPlace: PropTypes.objectOf(PropTypes.object),
-  fromPlace: PropTypes.objectOf(PropTypes.object),
+  price: PropTypes.string,
+  toPlace: PropTypes.objectOf(PropTypes.any),
+  fromPlace: PropTypes.objectOf(PropTypes.any),
   carrier: PropTypes.string,
 };
 
