@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 const FilerWrapper = styled.div`
@@ -11,14 +11,14 @@ border-radius: 5px;
 height: 252px;
 width: 232px;
 margin-right: 20px;
-`
+`;
 
 const FilterForm = styled.form`
 display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: flex-start;
-`
+`;
 
 const FilterHeader = styled.h2`
 margin-top: 20px;
@@ -28,7 +28,7 @@ font-size: 12px;
 text-transform: uppercase;
 text-align: left;
 padding-left: 20px;
-`
+`;
 
 const FilterLabel = styled.label`
 margin-bottom: 0px;
@@ -56,7 +56,7 @@ line-height: 20px;
 }
 
 &:after {
-  display: ${props => props.clicked ? "block" : "none"};
+  display: ${(props) => (props.clicked ? 'block' : 'none')};
   content: "";
   width: 20px;
   height: 20px;
@@ -67,97 +67,70 @@ line-height: 20px;
   left: 21px;
   top: 11px;
 }
-`
+`;
 
-const FilterInput = styled(Field)
-`
+const FilterInput = styled(Field)`
 display: none;
 position: relative;
 margin: 0;
 padding: 0;
-`
+`;
 
 
-
-const Filter = (props) => (
+const Filter = ({
+  all, noStops, oneStop, twoStops, threeStops,
+}) => (
   <FilerWrapper>
     <FilterHeader>Количество пересадок</FilterHeader>
     <FilterForm action="">
-      <FilterLabel htmlFor="all" clicked={props.all}>
+      <FilterLabel htmlFor="all" clicked={all}>
         <FilterInput component="input" type="checkbox" id="all" name="all" />
         Все
       </FilterLabel>
-      <FilterLabel htmlFor="noStops" clicked={props.noStops}>
+      <FilterLabel htmlFor="noStops" clicked={noStops}>
         <FilterInput component="input" type="checkbox" name="noStops" id="noStops" />
         Без пересадок
       </FilterLabel>
-      <FilterLabel htmlFor="oneStop" clicked={props.oneStop}>
+      <FilterLabel htmlFor="oneStop" clicked={oneStop}>
         <FilterInput component="input" id="oneStop" type="checkbox" name="oneStop" />
         1 пересадка
       </FilterLabel>
-      <FilterLabel htmlFor="twoStops"  clicked={props.twoStops}>
+      <FilterLabel htmlFor="twoStops" clicked={twoStops}>
         <FilterInput component="input" type="checkbox" name="twoStops" id="twoStops" />
         2 пересадки
       </FilterLabel>
-      <FilterLabel htmlFor="threeStops"  clicked={props.threeStops}>
+      <FilterLabel htmlFor="threeStops" clicked={threeStops}>
         <FilterInput component="input" type="checkbox" name="threeStops" id="threeStops" />
         3 пересадки
       </FilterLabel>
     </FilterForm>
   </FilerWrapper>
-)
+);
 
-// const Filter = (props) => (
-//   <div className="filter">
-//     <h2>Количество пересадок</h2>
-//     <form action="">
-//     {console.log(props.all)}
-      
-//       <label htmlFor="all"><Field component="input" type="checkbox" id="all" name="all" />Все</label>
-
-//       <Field component="input" type="checkbox" name="noStops" id="noStops" />
-//       <label htmlFor="noStops">Без пересадок</label>
-
-//       <Field component="input" id="oneStop" type="checkbox" name="oneStop" />
-//       <label htmlFor="oneStop">1 пересадка</label>
-
-//       <Field component="input" type="checkbox" name="twoStops" id="twoStops" />
-//       <label htmlFor="twoStops">2 пересадки</label>
-
-//       <Field component="input" type="checkbox" name="threeStops" id="threeStops" />
-//       <label htmlFor="threeStops">3 пересадки</label>
-
-//     </form>
-//   </div>
-// );
-
-
-
-const mapStateToPros = ( {form: { transfersFilter = {} }}) => {
-  if (Object.keys(transfersFilter).length < 2) return {
-    filter: {},
+const mapStateToProps = ({ form: { transfersFilter = {} } }) => {
+  if (Object.keys(transfersFilter).length < 2) {
+    return {
+      filter: {},
+    };
   }
-  console.log(transfersFilter.values)
   return transfersFilter.values;
-}
+};
 Filter.defaultProps = {
   all: false,
   noStops: false,
   oneStop: false,
   twoStops: false,
   threeStops: false,
-}
+};
 
-// Filter.PropTypes = {
-//   all: PropTypes.boolean,
-//   noStops: PropTypes.boolean,
-//   oneStop: PropTypes.boolean,
-//   twoStops: PropTypes.boolean,
-//   threeStops: PropTypes.boolean,
-// }
+Filter.propTypes = {
+  all: PropTypes.bool,
+  noStops: PropTypes.bool,
+  oneStop: PropTypes.bool,
+  twoStops: PropTypes.bool,
+  threeStops: PropTypes.bool,
+};
 
-export default connect(mapStateToPros, null)(reduxForm({
+export default connect(mapStateToProps, null)(reduxForm({
   form: 'transfersFilter',
-})(Filter))
-
-
+})(Filter));

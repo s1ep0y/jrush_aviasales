@@ -1,7 +1,7 @@
 import React from 'react';
 import { addMinutes, format } from 'date-fns';
 import PropTypes from 'prop-types';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const travelTimeMaker = (date, duration) => {
   const dateToWork = new Date(date);
@@ -48,7 +48,7 @@ margin-top: 6px;
 margin-bottom: 26px;
 font-weight: 600;
 color: #2196F3;
-`
+`;
 
 const TicketCompanyLogo = styled.img`
 position: absolute;
@@ -56,39 +56,39 @@ top: 20px;
 right: 15%;
 height: 36px;
 width: 110px;
-`
+`;
 
 const TicketBody = styled.div`
 display: flex;
 flex-wrap: nowrap;
 flex-direction: column;
-`
+`;
 
 const TicketRow = styled.div`
 display: flex;
 justify-content: space-between;
 margin-bottom: 10px;
-`
+`;
 
 const TicketCol = styled.ul`
 margin: 0;
 list-style-type: none;
 padding-left: 0;
 width: 33.333%;
-`
+`;
 
 const TicketFirstLine = styled.li`
 letter-spacing: .5px;
 text-transform: uppercase;
 font-size: 12px;
 color: #A0B0B9;
-`
+`;
 
 const TicketSecondLine = styled.li`
 font-weight: 600;
 font-size: 14px;
 color: #4A4A4A;
-`
+`;
 
 const Ticket = ({
   carrier, price, toPlace, fromPlace,
@@ -100,70 +100,66 @@ const Ticket = ({
         {' '}
         P
       </TicketPrice>
-        <TicketCompanyLogo src={`//pics.avs.io/99/36/${carrier}.png`} alt={carrier}/>
+      <TicketCompanyLogo src={`//pics.avs.io/99/36/${carrier}.png`} alt={carrier} />
     </TicketHeader>
     <TicketBody>
       <TicketRow>
         <TicketCol>
           <TicketFirstLine>
-          {`${toPlace.origin} - ${toPlace.destination}`}
+            {`${toPlace.origin} - ${toPlace.destination}`}
           </TicketFirstLine>
           <TicketSecondLine>
-          {travelTimeMaker(toPlace.date, toPlace.duration)}
+            {travelTimeMaker(toPlace.date, toPlace.duration)}
           </TicketSecondLine>
         </TicketCol>
         <TicketCol>
           <TicketFirstLine>
-          В пути
+            В пути
           </TicketFirstLine>
           <TicketSecondLine>
-          {`${Math.floor(toPlace.duration / 60)}ч ${toPlace.duration % 60}м`}
+            {`${Math.floor(toPlace.duration / 60)}ч ${toPlace.duration % 60}м`}
           </TicketSecondLine>
         </TicketCol>
         <TicketCol>
           <TicketFirstLine>
-          {transferMaker(toPlace.stops.length)}
+            {transferMaker(toPlace.stops.length)}
           </TicketFirstLine>
           <TicketSecondLine>
-          {toPlace.stops.join(' ')}
+            {toPlace.stops.join(' ')}
           </TicketSecondLine>
         </TicketCol>
-        
+
       </TicketRow>
       <TicketRow>
         <TicketCol>
           <TicketFirstLine>
-          {`${fromPlace.origin} - ${fromPlace.destination}`}
+            {`${fromPlace.origin} - ${fromPlace.destination}`}
           </TicketFirstLine>
           <TicketSecondLine>
-          {travelTimeMaker(fromPlace.date, fromPlace.duration)}
+            {travelTimeMaker(fromPlace.date, fromPlace.duration)}
           </TicketSecondLine>
         </TicketCol>
         <TicketCol>
           <TicketFirstLine>
-  B пути
+            B пути
           </TicketFirstLine>
           <TicketSecondLine>
-          {`${Math.floor(fromPlace.duration / 60)}ч ${fromPlace.duration % 60}м`}
+            {`${Math.floor(fromPlace.duration / 60)}ч ${fromPlace.duration % 60}м`}
           </TicketSecondLine>
         </TicketCol>
         <TicketCol>
           <TicketFirstLine>
-          {transferMaker(fromPlace.stops.length)}
+            {transferMaker(fromPlace.stops.length)}
           </TicketFirstLine>
           <TicketSecondLine>
-          {fromPlace.stops.join(' ')}
+            {fromPlace.stops.join(' ')}
           </TicketSecondLine>
         </TicketCol>
 
       </TicketRow>
     </TicketBody>
   </TicketWrapper>
-)
-
-
-
-
+);
 
 
 Ticket.defaultProps = {
