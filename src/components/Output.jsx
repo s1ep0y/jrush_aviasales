@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { uniqueId } from 'lodash';
 import PropTypes from 'prop-types';
 import Sort from './Sort';
 import Ticket from './Ticket';
@@ -59,7 +59,7 @@ class Output extends React.Component {
 
     const ticketsRendered = ticketsArrPrepared(tickets).map(({ carrier, price, segments }) => (
       <Ticket
-        key={_.uniqueId()}
+        key={uniqueId()}
         carrier={carrier}
         price={new Intl.NumberFormat('ru-RU').format(price)}
         toPlace={segments[0]}

@@ -2,10 +2,6 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-const data = {
-  sortBy: 'cheap',
-};
-
 const Sort = () => (
   <div className="sort">
     <form>
@@ -23,19 +19,11 @@ const Sort = () => (
   </div>
 );
 
-// Sort =
-
-// Sort = connect(
-//   () => ({
-//     initialValues: data,
-//   }),
-// )(reduxForm({
-//   form: 'sort',
-// })(Sort));
-
 export default connect(
   () => ({
-    initialValues: data,
+    initialValues: {
+      sortBy: 'cheap',
+    },
   }),
 )(reduxForm({
   form: 'sort',
