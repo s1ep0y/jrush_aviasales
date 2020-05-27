@@ -17,6 +17,7 @@ export const fetchTickets = () => async (dispatch) => {
         dispatch(fetchTicketsSuccess(data));
         dataCeeper(data.stop);
       } catch (err) {
+        console.log(err);
         dataCeeper();
       }
     };
