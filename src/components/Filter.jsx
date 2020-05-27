@@ -56,7 +56,7 @@ line-height: 20px;
 }
 
 &:after {
-  display: ${(props) => (props.clicked ? 'block' : 'none')};
+  display: ${(props) => (props.clicked)};
   content: "";
   width: 20px;
   height: 20px;
@@ -76,6 +76,15 @@ margin: 0;
 padding: 0;
 `;
 
+const allControl = (thisProp, ...otherProps) => {
+  if (!otherProps.includes(false)) return true;
+  return thisProp ? 'block' : 'none';
+};
+
+const checkControl = (all, thisProp) => {
+  if (all) return 'block';
+  return thisProp ? 'block' : 'none';
+};
 
 const Filter = ({
   all, noStops, oneStop, twoStops, threeStops,
@@ -83,23 +92,23 @@ const Filter = ({
   <FilerWrapper>
     <FilterHeader>Количество пересадок</FilterHeader>
     <FilterForm action="">
-      <FilterLabel htmlFor="all" clicked={all}>
+      <FilterLabel htmlFor="all" clicked={allControl(all, noStops, oneStop, twoStops, threeStops)}>
         <FilterInput component="input" type="checkbox" id="all" name="all" />
         Все
       </FilterLabel>
-      <FilterLabel htmlFor="noStops" clicked={noStops}>
+      <FilterLabel htmlFor="noStops" clicked={checkControl(all, noStops)}>
         <FilterInput component="input" type="checkbox" name="noStops" id="noStops" />
         Без пересадок
       </FilterLabel>
-      <FilterLabel htmlFor="oneStop" clicked={oneStop}>
+      <FilterLabel htmlFor="oneStop" clicked={checkControl(all, oneStop)}>
         <FilterInput component="input" id="oneStop" type="checkbox" name="oneStop" />
         1 пересадка
       </FilterLabel>
-      <FilterLabel htmlFor="twoStops" clicked={twoStops}>
+      <FilterLabel htmlFor="twoStops" clicked={checkControl(all, twoStops)}>
         <FilterInput component="input" type="checkbox" name="twoStops" id="twoStops" />
         2 пересадки
       </FilterLabel>
-      <FilterLabel htmlFor="threeStops" clicked={threeStops}>
+      <FilterLabel htmlFor="threeStops" clicked={checkControl(all, threeStops)}>
         <FilterInput component="input" type="checkbox" name="threeStops" id="threeStops" />
         3 пересадки
       </FilterLabel>
