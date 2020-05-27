@@ -25,21 +25,9 @@ class Output extends React.Component {
       return arr.length !== 0 ? arr : ['all'];
     };
 
-    const ticketsArrPrepared = (arr) => {
-      const params = stopsFilterArr();
-      const sorted = arr.sort((alfa, beta) => {
-        if (sortBy === 'cheap') {
-          return alfa.price > beta.price ? 1 : -1;
-        }
-        const dur1 = alfa.segments[0].duration + alfa.segments[1].duration;
-        const dur2 = beta.segments[0].duration + beta.segments[1].duration;
-        return dur1 > dur2
-          ? 1 : -1;
-      });
-
-
-      if (params.includes('all')) return sorted;
-      return sorted.filter((item) => {
+    const ticketsFiltered = (arr, params) => {
+      if (params.includes('all')) return arr;
+      return arr.filter((item) => {
         const count = item.segments[0].stops.length;
         switch (count) {
           case 0:
@@ -56,6 +44,21 @@ class Output extends React.Component {
       });
     };
 
+    const ticketsArrPrepared = (arr) => {
+      const params = stopsFilterArr();
+      const sorted = arr.sort((alfa, beta) => {
+        if (sortBy === 'cheap') {
+          return alfa.price > beta.price ? 1 : -1;
+        }
+        const dur1 = alfa.segments[0].duration + alfa.segments[1].duration;
+        const dur2 = beta.segments[0].duration + beta.segments[1].duration;
+        return dur1 > dur2
+          ? 1 : -1;
+      });
+      if (params.includes('all')) return sorted;
+      return ticketsFiltered(sorted, params);
+    };
+
 
     const ticketsRendered = ticketsArrPrepared(tickets).map(({ carrier, price, segments }) => (
       <Ticket
@@ -66,7 +69,6 @@ class Output extends React.Component {
         fromPlace={segments[1]}
       />
     ));
-      //
     return ticketsRendered;
   }
 
