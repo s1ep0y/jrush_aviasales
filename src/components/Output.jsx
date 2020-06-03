@@ -84,13 +84,13 @@ class Output extends React.Component {
 }
 
 Output.defaultProps = {
-  tickets: {},
+  tickets: [],
   sortBy: '',
   transfersFilter: {},
 };
 
 Output.propTypes = {
-  tickets: PropTypes.objectOf(PropTypes.array),
+  tickets: PropTypes.arrayOf(PropTypes.object),
   sortBy: PropTypes.string,
   transfersFilter: PropTypes.objectOf(PropTypes.bool),
 };
