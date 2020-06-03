@@ -18,11 +18,9 @@ const ticketsFetchingState = handleActions({
 
 const tickets = handleActions({
   [actions.fetchTicketsSuccess](state, { payload }) {
-    return {
-      tickets: [...state.tickets, ...payload.tickets],
-    };
+    return [...state, ...payload.tickets];
   },
-}, { tickets: [] });
+}, []);
 
 const ticketsFilter = handleActions({
   [actions.ticketsFilterChange](state, { payload }) {

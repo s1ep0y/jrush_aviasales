@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 
 class Output extends React.Component {
   ticketsRender = () => {
-    const { tickets: { tickets }, sortBy, transfersFilter } = this.props;
+    const { tickets, sortBy, transfersFilter } = this.props;
 
     if (!tickets) return null;
 
