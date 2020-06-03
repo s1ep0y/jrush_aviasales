@@ -6,21 +6,20 @@ import Sort from './Sort';
 import Ticket from './Ticket';
 
 const mapStateToProps = (state) => ({
-  transfersFilter: state.form.transfersFilter,
+  transfersFilter: state.ticketsFilter,
   sortBy: state.form.sort ? state.form.sort.values.sortBy : 'cheap',
   tickets: state.tickets,
 });
 
 class Output extends React.Component {
   ticketsRender = () => {
-    const { tickets: { tickets }, sortBy, transfersFilter = [] } = this.props;
+    const { tickets: { tickets }, sortBy, transfersFilter } = this.props;
 
     if (!tickets) return null;
 
     const stopsFilterArr = () => {
-      if (!transfersFilter.values) return ['all'];
-      const arr = Object.keys(transfersFilter.values)
-        .reduce((acc, current) => (transfersFilter.values[current]
+      const arr = Object.keys(transfersFilter)
+        .reduce((acc, current) => (transfersFilter[current]
           ? [current, ...acc] : [...acc]), []);
       return arr.length !== 0 ? arr : ['all'];
     };
@@ -60,15 +59,17 @@ class Output extends React.Component {
     };
 
 
-    const ticketsRendered = ticketsArrPrepared(tickets).map(({ carrier, price, segments }) => (
-      <Ticket
-        key={uniqueId()}
-        carrier={carrier}
-        price={new Intl.NumberFormat('ru-RU').format(price)}
-        toPlace={segments[0]}
-        fromPlace={segments[1]}
-      />
-    ));
+    const ticketsRendered = ticketsArrPrepared(tickets)
+      .slice(0, 5)
+      .map(({ carrier, price, segments }) => (
+        <Ticket
+          key={uniqueId()}
+          carrier={carrier}
+          price={new Intl.NumberFormat('ru-RU').format(price)}
+          toPlace={segments[0]}
+          fromPlace={segments[1]}
+        />
+      ));
     return ticketsRendered;
   }
 
@@ -76,7 +77,7 @@ class Output extends React.Component {
     return (
       <div className="output">
         <Sort />
-        {this.ticketsRender().splice(0, 5)}
+        {this.ticketsRender()}
       </div>
     );
   }
@@ -91,7 +92,7 @@ Output.defaultProps = {
 Output.propTypes = {
   tickets: PropTypes.objectOf(PropTypes.array),
   sortBy: PropTypes.string,
-  transfersFilter: PropTypes.objectOf(PropTypes.object),
+  transfersFilter: PropTypes.objectOf(PropTypes.bool),
 };
 
 export default connect(mapStateToProps, null)(Output);

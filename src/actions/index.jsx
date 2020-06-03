@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
 
+export const ticketsFilterChange = createAction('FILTER_CHANGE');
+
 export const fetchTicketsRequest = createAction('TIKETS_FETCH_REQUEST');
 export const fetchTicketsSuccess = createAction('TIKETS_FETCH_SUCCESS');
 export const fetchTicketsFailure = createAction('TIKETS_FETCH_FAILURE');

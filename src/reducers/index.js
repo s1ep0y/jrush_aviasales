@@ -24,7 +24,41 @@ const tickets = handleActions({
   },
 }, { tickets: [] });
 
+const ticketsFilter = handleActions({
+  [actions.ticketsFilterChange](state, { payload }) {
+    const newVal = !state[payload];
+
+    if (payload === 'all' && state.all === false) {
+      return {
+        all: true,
+        noStops: true,
+        oneStop: true,
+        twoStops: true,
+        threeStops: true,
+      };
+    }
+
+    if (state[payload] === true && state.all === true) {
+      return {
+        ...state,
+        all: false,
+        [payload]: newVal,
+
+      };
+    }
+    return { ...state, [payload]: newVal };
+  },
+},
+{
+  all: false,
+  noStops: false,
+  oneStop: false,
+  twoStops: false,
+  threeStops: false,
+});
+
 export default combineReducers({
+  ticketsFilter,
   ticketsFetchingState,
   tickets,
   form: formReducer,

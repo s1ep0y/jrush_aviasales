@@ -1,8 +1,8 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import * as actions from '../actions/index';
 
 const FilerWrapper = styled.div`
 background: #FFFFFF;
@@ -69,67 +69,69 @@ line-height: 20px;
 }
 `;
 
-const FilterInput = styled(Field)`
+const FilterInput = styled.input`
 display: none;
 position: relative;
 margin: 0;
 padding: 0;
 `;
 
-const allControl = (thisProp, ...otherProps) => {
-  if (!otherProps.includes(false)) return true;
-  return thisProp ? 'block' : 'none';
-};
 
-const checkControl = (all, thisProp) => {
-  if (all) return 'block';
-  return thisProp ? 'block' : 'none';
-};
+const checkControl = (thisProp) => (thisProp ? 'block' : 'none');
 
-const Filter = ({
-  all, noStops, oneStop, twoStops, threeStops,
-}) => (
-  <FilerWrapper>
-    <FilterHeader>Количество пересадок</FilterHeader>
-    <FilterForm action="">
-      <FilterLabel htmlFor="all" clicked={allControl(all, noStops, oneStop, twoStops, threeStops)}>
-        <FilterInput component="input" type="checkbox" id="all" name="all" />
-        Все
-      </FilterLabel>
-      <FilterLabel htmlFor="noStops" clicked={checkControl(all, noStops)}>
-        <FilterInput component="input" type="checkbox" name="noStops" id="noStops" />
-        Без пересадок
-      </FilterLabel>
-      <FilterLabel htmlFor="oneStop" clicked={checkControl(all, oneStop)}>
-        <FilterInput component="input" id="oneStop" type="checkbox" name="oneStop" />
-        1 пересадка
-      </FilterLabel>
-      <FilterLabel htmlFor="twoStops" clicked={checkControl(all, twoStops)}>
-        <FilterInput component="input" type="checkbox" name="twoStops" id="twoStops" />
-        2 пересадки
-      </FilterLabel>
-      <FilterLabel htmlFor="threeStops" clicked={checkControl(all, threeStops)}>
-        <FilterInput component="input" type="checkbox" name="threeStops" id="threeStops" />
-        3 пересадки
-      </FilterLabel>
-    </FilterForm>
-  </FilerWrapper>
-);
-
-const mapStateToProps = ({ form: { transfersFilter = {} } }) => {
-  if (Object.keys(transfersFilter).length < 2) {
-    return {
-      filter: {},
-    };
+class Filter extends React.Component {
+  checkboxHandler = (inputName) => () => {
+    const { ticketsFilterChange } = this.props;
+    ticketsFilterChange(inputName);
   }
-  return transfersFilter.values;
+
+  render() {
+    const {
+      all, noStops, oneStop, twoStops, threeStops,
+    } = this.props;
+    return (
+      <FilerWrapper>
+        <FilterHeader>Количество пересадок</FilterHeader>
+        <FilterForm>
+          <FilterLabel htmlFor="all" clicked={checkControl(all)}>
+            <FilterInput checked={all} onChange={this.checkboxHandler('all')} type="checkbox" id="all" name="all" />
+            Все
+          </FilterLabel>
+          <FilterLabel htmlFor="noStops" clicked={checkControl(noStops)}>
+            <FilterInput checked={noStops} onChange={this.checkboxHandler('noStops')} type="checkbox" name="noStops" id="noStops" />
+            Без пересадок
+          </FilterLabel>
+          <FilterLabel htmlFor="oneStop" clicked={checkControl(oneStop)}>
+            <FilterInput checked={oneStop} onChange={this.checkboxHandler('oneStop')} id="oneStop" type="checkbox" name="oneStop" />
+            1 пересадка
+          </FilterLabel>
+          <FilterLabel htmlFor="twoStops" clicked={checkControl(twoStops)}>
+            <FilterInput checked={twoStops} onChange={this.checkboxHandler('twoStops')} type="checkbox" name="twoStops" id="twoStops" />
+            2 пересадки
+          </FilterLabel>
+          <FilterLabel htmlFor="threeStops" clicked={checkControl(threeStops)}>
+            <FilterInput checked={threeStops} onChange={this.checkboxHandler('threeStops')} type="checkbox" name="threeStops" id="threeStops" />
+            3 пересадки
+          </FilterLabel>
+        </FilterForm>
+      </FilerWrapper>
+    );
+  }
+}
+
+const mapStateToProps = ({ ticketsFilter }) => ticketsFilter;
+
+const actionCreators = {
+  ticketsFilterChange: actions.ticketsFilterChange,
 };
+
 Filter.defaultProps = {
   all: false,
   noStops: false,
   oneStop: false,
   twoStops: false,
   threeStops: false,
+  ticketsFilterChange: () => {},
 };
 
 Filter.propTypes = {
@@ -138,8 +140,7 @@ Filter.propTypes = {
   oneStop: PropTypes.bool,
   twoStops: PropTypes.bool,
   threeStops: PropTypes.bool,
+  ticketsFilterChange: PropTypes.func,
 };
 
-export default connect(mapStateToProps, null)(reduxForm({
-  form: 'transfersFilter',
-})(Filter));
+export default connect(mapStateToProps, actionCreators)(Filter);
