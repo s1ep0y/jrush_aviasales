@@ -44,6 +44,18 @@ const ticketsFilter = handleActions({
 
       };
     }
+
+    if (state[payload] === false && state.all === false && Object.values(state)
+      .filter((val) => val).length === 3) {
+      return {
+        all: true,
+        noStops: true,
+        oneStop: true,
+        twoStops: true,
+        threeStops: true,
+      };
+    }
+
     return { ...state, [payload]: newVal };
   },
 },
