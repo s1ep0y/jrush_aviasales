@@ -77,13 +77,13 @@ padding: 0;
 `;
 
 
-const checkControl = (thisProp) => (thisProp ? 'block' : 'none');
-
 class Filter extends React.Component {
   checkboxHandler = (inputName) => () => {
     const { ticketsFilterChange } = this.props;
     ticketsFilterChange(inputName);
   }
+
+  checkControl = (thisProp) => (thisProp ? 'block' : 'none');
 
   render() {
     const {
@@ -93,23 +93,23 @@ class Filter extends React.Component {
       <FilerWrapper>
         <FilterHeader>Количество пересадок</FilterHeader>
         <FilterForm>
-          <FilterLabel htmlFor="all" clicked={checkControl(all)}>
+          <FilterLabel htmlFor="all" clicked={this.checkControl(all)}>
             <FilterInput checked={all} onChange={this.checkboxHandler('all')} type="checkbox" id="all" name="all" />
             Все
           </FilterLabel>
-          <FilterLabel htmlFor="noStops" clicked={checkControl(noStops)}>
+          <FilterLabel htmlFor="noStops" clicked={this.checkControl(noStops)}>
             <FilterInput checked={noStops} onChange={this.checkboxHandler('noStops')} type="checkbox" name="noStops" id="noStops" />
             Без пересадок
           </FilterLabel>
-          <FilterLabel htmlFor="oneStop" clicked={checkControl(oneStop)}>
+          <FilterLabel htmlFor="oneStop" clicked={this.checkControl(oneStop)}>
             <FilterInput checked={oneStop} onChange={this.checkboxHandler('oneStop')} id="oneStop" type="checkbox" name="oneStop" />
             1 пересадка
           </FilterLabel>
-          <FilterLabel htmlFor="twoStops" clicked={checkControl(twoStops)}>
+          <FilterLabel htmlFor="twoStops" clicked={this.checkControl(twoStops)}>
             <FilterInput checked={twoStops} onChange={this.checkboxHandler('twoStops')} type="checkbox" name="twoStops" id="twoStops" />
             2 пересадки
           </FilterLabel>
-          <FilterLabel htmlFor="threeStops" clicked={checkControl(threeStops)}>
+          <FilterLabel htmlFor="threeStops" clicked={this.checkControl(threeStops)}>
             <FilterInput checked={threeStops} onChange={this.checkboxHandler('threeStops')} type="checkbox" name="threeStops" id="threeStops" />
             3 пересадки
           </FilterLabel>
